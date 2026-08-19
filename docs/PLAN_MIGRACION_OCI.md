@@ -20,26 +20,23 @@
 
 ---
 
-## FASE 0 — Preparación local (en tu PC) ✔️ TU TAREA
+## FASE 0 — Preparación local (en tu PC) ✔️ HECHO (2026-08-19)
 
-1. **Confirmar la BD fuente real de los datos**: ¿Supabase (la URL que aparece en `backend/.env.production`) o el Postgres local de Docker? De ahí harás el `pg_dump`.
-2. **Generar respaldo completo de seguridad** de esa BD:
-   ```bash
-   pg_dump "postgresql://USUARIO:CLAVE@HOST:5432/BASE" -Fc -f respaldo_antes_migracion.dump
+1. **BD fuente confirmada**: **PostgreSQL 18 nativo de Windows** (servicio `postgresql-x64-18`, puerto `5432`), base de datos `ACADEMIA_ADUNI_VALLEJO` (~10 MB). No es Docker ni Supabase.
+2. **Respaldo de la BD generado** (formato custom, compatible con `pg_restore`):
    ```
-   (Guárdalo fuera del proyecto, en un pendrive o servicio aparte.)
-3. **Copiar los archivos subidos actuales**:
-   ```bash
-   # Desde la PC: backend/uploads  (~16 MB hoy: course-covers, courses, profile-pictures)
-   # Se restaurarán en la VM OCI en /data/runtime/uploads
+   C:\Users\LEGION\AppData\Local\Temp\opencode\migracion_oci\respaldo_pre_migracion.dump
    ```
-4. **Guardar los valores actuales** de `backend/.env` y `backend/.env.production` en un lugar seguro (necesitarás `DATABASE_URL` y `JWT_SECRET` actuales solo para referencia).
-5. **Recomendado: crear un repositorio privado en GitHub** y subir el proyecto (los `.env` ya están excluidos por `.gitignore`). Esto simplifica el paso 4 de la Fase 3.
-   ```bash
-   git init && git add . && git commit -m "preparacion migracion OCI"
-   git remote add origin https://github.com/TU_USUARIO/intranet-vallejo.git
-   git push -u origin main
+   ⚠️ **Cópiame a un pendrive o servicio externo** antes de continuar.
+3. **Archivos subidos copiados** (course-covers, courses, profile-pictures; ~16.7 MB) en:
    ```
+   C:\Users\LEGION\AppData\Local\Temp\opencode\migracion_oci\uploads
+   ```
+   Se restaurarán en la VM OCI en `/data/runtime/uploads`.
+4. **Guardar los valores actuales** de `backend/.env` y `backend/.env.production` en un lugar seguro (solo referencia; NO reutilizar las claves).
+5. **Repositorio GitHub creado** (privado): `https://github.com/MAOC27COAM/intranet-vallejo`
+   - Rama `main`, ya pusheada, `.env`/uploads/runtime excluidos.
+   - Para clonar el repo privado en la VM OCI necesitas un **deploy key SSH** (recomendado, read-only) o un **PAT** con permiso de lectura. Ver Fase 3.
 
 ---
 
@@ -96,17 +93,21 @@
    sudo usermod -aG docker $USER
    # cerrar sesión y volver a entrar para que aplique
    ```
-2. Clonar el proyecto (si creaste el repo en GitHub):
+2. Clonar el proyecto (repo privado):
    ```bash
    cd /data
-   git clone https://github.com/TU_USUARIO/intranet-vallejo.git
+   git clone git@github.com:MAOC27COAM/intranet-vallejo.git
    cd intranet-vallejo
    ```
-   (Si no usaste GitHub: copia la carpeta completa con `scp -r -i tu-clave.pem ".\INTRANET VALLEJO" ubuntu@IP:/data/`)
+   > Si usas HTTPS con PAT:
+   > ```bash
+   > git clone https://<USUARIO>:<PAT>@github.com/MAOC27COAM/intranet-vallejo.git
+   > ```
 3. Dar permiso de ejecución al script de despliegue:
    ```bash
    chmod +x deploy/install-or-update.sh
    ```
+   > El repositorio fuerza saltos de línea LF en los `.sh` (ver `.gitattributes`), así que no deberían aparecer errores de "bad interpreter".
 
 ---
 
@@ -138,22 +139,24 @@ openssl rand -hex 64   # para JWT_SECRET
 
 ## FASE 5 — Migrar los datos 📦 TU TAREA
 
-1. **Levantar SOLO la BD** para restaurar:
+1. **Subir el dump y los uploads a la VM** (desde tu PC):
+   ```bash
+   scp -i tu-clave.pem "C:\Users\LEGION\AppData\Local\Temp\opencode\migracion_oci\respaldo_pre_migracion.dump" ubuntu@IP:/data/
+   scp -r -i tu-clave.pem "C:\Users\LEGION\AppData\Local\Temp\opencode\migracion_oci\uploads" ubuntu@IP:/data/runtime/uploads
+   ```
+2. **Levantar SOLO la BD** para restaurar:
    ```bash
    cd /data/intranet-vallejo/deploy
    RUNTIME_DIR=/data/runtime docker compose --env-file .env -f docker-compose.beta.yml up -d db
    ```
-2. **Restaurar el dump** dentro del contenedor:
+3. **Restaurar el dump** (formato custom `-Fc`, se usa `pg_restore`):
    ```bash
    docker compose --env-file .env -f docker-compose.beta.yml exec -T db \
-     psql -U intranet -d intranet_db < /ruta/al/respaldo.sql
+     pg_restore -U intranet -d intranet_db --no-owner --role=intranet \
+     < /data/respaldo_pre_migracion.dump
    ```
-   > Si tu respaldo es `.dump` (formato custom), usa `pg_restore` en lugar de `psql`.
-3. **Restaurar los uploads**:
-   ```bash
-   scp -r -i tu-clave.pem "C:\...\backend\uploads\*" ubuntu@IP:/data/runtime/uploads/
-   ```
-   Verificar estructura final:
+   > La BD de OCI usa **PostgreSQL 18** (`postgres:18-alpine`, misma versión que tu PC), por lo que no hay conflictos de versión. Si el dump no existiera en `/data`, cámbialo por la ruta real.
+4. **Restaurar los uploads** (verificar estructura final):
    ```
    /data/runtime/uploads/
      ├── course-covers/
@@ -242,3 +245,7 @@ openssl rand -hex 64   # para JWT_SECRET
 6. **`backend/prisma/seed.js`** — contraseñas por defecto configurables vía `SEED_PASSWORD_KAMI` / `SEED_PASSWORD_ADMIN` / `SEED_PASSWORD_MATRICULADOR`, con advertencia en consola si se usan las por defecto.
 7. **`backend/src/app.js`** — **rate-limit global** (600 solicitudes / 15 min por IP) además del límite de login ya existente.
 8. **Eliminado `backend/test_env.js`** — imprimía `DATABASE_URL` en consola (riesgo de fuga de credenciales).
+9. **Repositorio unificado creado y pusheado** — `https://github.com/MAOC27COAM/intranet-vallejo` (privado, rama `main`). Se aplanaron los `.git` internos de `backend/` y `frontend/`; la landing `WEB/` se excluyó (mantiene su propio repo).
+10. **`.gitattributes`** — fuerza LF en `*.sh` (evita "bad interpreter" en la VM Ubuntu), CRLF en `*.ps1`/`*.bat`, y marca los binarios como `binary`.
+11. **`deploy/docker-compose.beta.yml`** — imagen de BD cambiada a **`postgres:18-alpine`** para coincidir con el PostgreSQL 18 local y que el `pg_dump` restaure sin conflictos de versión.
+12. **`README.md`** — completado con stack, estructura, despliegue local y enlaces al plan OCI.
