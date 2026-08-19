@@ -1,0 +1,334 @@
+.detailView {
+  width: 100%;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: var(--spacing-xl);
+  border-left: 5px solid #f97316;
+  padding-left: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f3f4f6;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  border-color: #f97316;
+  color: #fdba74;
+}
+
+.cycleClosedNotice {
+  margin-bottom: 1rem;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.14);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  color: #fecaca;
+  font-weight: 700;
+}
+
+.error {
+  color: #f87171;
+  margin-bottom: 1rem;
+}
+
+.success {
+  color: #4ade80;
+  margin-bottom: 1rem;
+}
+
+.placeholder {
+  color: #6b7280;
+  text-align: center;
+  padding: 2rem;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 24px;
+  transition: transform 0.3s ease;
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  border-left: 4px solid #f97316;
+  padding-left: 12px;
+}
+
+.threeColGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.col1,
+.col2,
+.col3 {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+@media (max-width: 1100px) {
+  .threeColGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.infoItem strong {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.infoItem span {
+  font-weight: 600;
+}
+
+.statusBadge {
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+}
+
+.retiredNotice {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  padding: 12px;
+  border-radius: 12px;
+  margin: 15px 0;
+  font-size: 0.85rem;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.installmentsBlock h4 {
+  margin-bottom: 0.35rem;
+}
+
+.installmentsNote {
+  color: #9ca3af;
+  font-size: 0.85rem;
+  margin: 0 0 1rem;
+}
+
+.miniTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 16px;
+}
+
+.historyTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.historyTable th {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  text-align: left;
+  color: #9ca3af;
+}
+
+.historyTable td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.miniTable th {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  text-align: left;
+  color: #9ca3af;
+}
+
+.miniTable td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.paymentBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 16px;
+}
+
+.paymentBox input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  color: white;
+}
+
+.paymentButtonsRow {
+  display: flex;
+  gap: 8px;
+}
+
+.paymentButtonsRow button {
+  flex: 1;
+}
+
+.paymentButtonsRow button.couponButton {
+  background: #f97316;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+  white-space: nowrap;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 0;
+}
+
+.couponButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.discountSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 5px;
+}
+
+.discountSection input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  padding: 10px;
+  border-radius: 8px;
+  color: white;
+}
+
+.applyDiscountButton {
+  background: transparent;
+  color: #f97316;
+  border: 1px solid #f97316;
+  padding: 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.applyDiscountButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.paymentBox button {
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.paymentBox button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.retireButton {
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.retireButton:hover:not(:disabled) {
+  background: #ef4444;
+  color: white;
+}
+
+.retireButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.activateButton {
+  background: transparent;
+  color: #22c55e;
+  border: 1px solid #22c55e;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.activateButton:hover:not(:disabled) {
+  background: #22c55e;
+  color: white;
+}
+
+.activateButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+

@@ -1,0 +1,321 @@
+/* CreateEventModal.module.css - Versión Definitiva */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.modalContent {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-lg);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 550px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.closeButton:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.modalContent h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.7));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 6px 0;
+}
+
+.modalHint {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: var(--spacing-lg);
+}
+
+.errorMessage {
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.02));
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formGroup label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  display: block;
+}
+
+/* --- SOLUCIÓN FUERTE PARA INPUTS (INCLUYE NOMBRE Y TEMAS) --- */
+/* Usamos selectores ultra específicos con !important para tumbar cualquier estilo global o del navegador */
+.modalContent .form input,
+.modalContent .formGroup input,
+.modalContent .formGroup input[name="name"],
+.modalContent .thematicRow input {
+  background: rgba(15, 23, 42, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  color: #fff !important;
+  font-size: 0.95rem !important;
+  transition: all 0.2s !important;
+  box-sizing: border-box !important;
+  width: 100% !important; /* Que ocupen todo el ancho de su contenedor */
+}
+
+/* Estilo al hacer foco */
+.modalContent .form input:focus,
+.modalContent .formGroup input:focus,
+.modalContent .thematicRow input:focus {
+  outline: none !important;
+  background: rgba(15, 23, 42, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Marcadores de posición (Placeholders) */
+.modalContent input::placeholder {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* --- CONTENEDOR DE RADIO BUTTONS --- */
+.radioContainer {
+  display: flex;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.5);
+  padding: 6px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.radioContainer label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-transform: none;
+  letter-spacing: 0;
+  position: relative;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+/* Ocultar por completo el input nativo circular de los radios */
+.radioContainer input[type="radio"] {
+  appearance: none !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Círculo simulado antes del número */
+.radioContainer label::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+/* Estado Activo/Seleccionado */
+.radioContainer label:has(input:checked) {
+  background: #fff !important;
+  color: #0f172a !important;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Cambiar el círculo simulado a oscuro cuando está seleccionado */
+.radioContainer label:has(input:checked)::before {
+  background: #0f172a;
+  border-color: #0f172a;
+}
+
+/* --- FILAS TEMÁTICAS --- */
+.thematicRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+  animation: fadeIn 0.2s ease-out;
+  width: 100%;
+}
+
+/* Ajustes de anchos para la fila */
+.thematicRow input:nth-child(1) {
+  flex: 3 !important; /* Tema toma más espacio */
+}
+
+.thematicRow input[type="number"] {
+  flex: 1.2 !important; /* Rango de números equilibrado */
+  text-align: center !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* Botón eliminar fila (X) */
+.thematicRow button {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.thematicRow button:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ff8787;
+}
+
+/* Botón Añadir Tema */
+.formGroup > button[type="button"] {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  margin-top: 4px;
+}
+
+.formGroup > button[type="button"]:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+/* Acciones Finales */
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.formActions button[type="button"] {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 12px 24px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.formActions button[type="button"]:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.formActions button[type="submit"] {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8));
+  border: none;
+  color: #0f172a;
+  padding: 12px 28px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+  transition: all 0.2s;
+}
+
+.formActions button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
+  background: #fff;
+}
+
+.formActions button[type="submit"]:disabled {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.4);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.modalContent::-webkit-scrollbar { width: 6px; }
+.modalContent::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }

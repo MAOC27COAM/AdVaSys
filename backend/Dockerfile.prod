@@ -1,0 +1,23 @@
+FROM node:18-alpine
+
+RUN apk add --no-cache postgresql-client
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+COPY prisma ./prisma
+RUN npx prisma generate
+
+COPY . .
+
+RUN chmod +x ./docker/entrypoint.prod.sh
+
+ENV NODE_ENV=production
+ENV HOST=0.0.0.0
+ENV PORT=4000
+
+EXPOSE 4000
+
+ENTRYPOINT ["./docker/entrypoint.prod.sh"]

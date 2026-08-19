@@ -1,0 +1,570 @@
+.userManager {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  animation: fadeIn 0.25s ease;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: var(--spacing-xl);
+  border-left: 5px solid #f97316;
+  padding-left: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topActionsBar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.exportButton {
+  height: 40px;
+  padding: 0 1rem;
+  border-radius: 10px;
+  border: none;
+  background: #f97316;
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.exportButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(249, 115, 22, 0.25);
+}
+
+.exportButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.sheetButton {
+  height: 40px;
+  padding: 0 1rem;
+  border-radius: 10px;
+  border: none;
+  background: #002147;
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.sheetButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0, 33, 71, 0.25);
+}
+
+.sheetButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.barsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.columnBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 14px;
+  min-height: 44px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.columnBarInner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  flex: 1;
+}
+
+.columnBarInner::-webkit-scrollbar {
+  height: 5px;
+}
+
+.columnBarInner::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+
+.columnBarHidden {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.columnBarVisible {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.columnBarDragOver {
+  border-color: rgba(249, 115, 22, 0.4);
+  background: rgba(249, 115, 22, 0.04);
+}
+
+.columnBarLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 0.25rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: grab;
+  user-select: none;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.pillVisible {
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  color: #fb923c;
+}
+
+.pillVisible:hover {
+  background: rgba(249, 115, 22, 0.18);
+}
+
+.pillHidden {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #d1d5db;
+}
+
+.pillHidden:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.pillActive {
+  border-color: #f97316;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
+}
+
+.pillDragging {
+  opacity: 0.4;
+}
+
+.pillNoFilter {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.pillFilterDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f97316;
+  flex-shrink: 0;
+}
+
+.pillArrow {
+  font-size: 0.6rem;
+  color: inherit;
+  opacity: 0.5;
+  margin-left: 0.1rem;
+}
+
+.dragHandle {
+  color: #6b7280;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  cursor: grab;
+  line-height: 1;
+}
+
+.filterPopover {
+  position: fixed;
+  z-index: 100;
+  min-width: 180px;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.5rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.12s ease;
+}
+
+.filterPopoverSelect {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.filterPopoverOption {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #d1d5db;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.filterPopoverOption:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.filterPopoverOptionActive {
+  background: rgba(249, 115, 22, 0.12);
+  color: #fb923c;
+  font-weight: 600;
+}
+
+.filterPopoverTextWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.filterPopoverInput {
+  width: 100%;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #f3f4f6;
+  font-size: 0.8rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.filterPopoverInput:focus {
+  border-color: rgba(249, 115, 22, 0.4);
+}
+
+.filterPopoverInput::placeholder {
+  color: #6b7280;
+}
+
+.filterPopoverClear {
+  position: absolute;
+  right: 6px;
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.filterPopoverInfo {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  color: #6b7280;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.filterPopoverCheckList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.filterPopoverCheckLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #d1d5db;
+  font-size: 0.78rem;
+  transition: background 0.12s;
+  user-select: none;
+}
+
+.filterPopoverCheckLabel:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.filterPopoverCheckbox {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.filterPopoverCheckbox:checked {
+  border-color: #fb923c;
+  background: rgba(249, 115, 22, 0.2);
+}
+
+.filterPopoverCheckbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0;
+  width: 4px;
+  height: 7px;
+  border: solid #fb923c;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.filterPopoverCheckLabel span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.loadingText,
+.emptyState,
+.accessDenied {
+  padding: 1.2rem;
+  border-radius: 14px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #9ca3af;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.06);
+}
+
+.errorMessage {
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+}
+
+.tableContainer::-webkit-scrollbar {
+  height: 7px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+.userTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 950px;
+}
+
+.userTable thead {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.userTable th {
+  padding: 0.8rem 0.9rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+}
+
+.rowNumHeader,
+.rowNumCell {
+  width: 50px;
+  min-width: 50px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.sortableHeader {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s;
+}
+
+.sortableHeader:hover {
+  color: #fb923c;
+}
+
+.sortIndicator {
+  font-size: 0.6rem;
+  margin-left: 0.25rem;
+  color: #f97316;
+}
+
+.userTable td {
+  padding: 0.75rem 0.9rem;
+  font-size: 0.82rem;
+  color: #e5e7eb;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+}
+
+.userTable tbody tr {
+  transition: background 0.2s ease;
+}
+
+.userTable tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.statusBadge,
+.debtBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.statusActive {
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+  border-color: rgba(34, 197, 94, 0.18);
+}
+
+.statusRetired {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.18);
+}
+
+.statusObservation {
+  background: rgba(249, 115, 22, 0.1);
+  color: #fb923c;
+  border-color: rgba(249, 115, 22, 0.18);
+}
+
+.debtPending {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.18);
+}
+
+.debtSettled {
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+  border-color: rgba(34, 197, 94, 0.18);
+}
+
+.debtNoAgreement {
+  background: rgba(107, 114, 128, 0.12);
+  color: #d1d5db;
+  border-color: rgba(107, 114, 128, 0.2);
+}
+
+.paginator {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.82rem;
+  color: #9ca3af;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.paginator button {
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #e5e7eb;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.paginator button:hover:not(:disabled) {
+  background: rgba(249, 115, 22, 0.12);
+  border-color: rgba(249, 115, 22, 0.2);
+}
+
+.paginator button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .topActionsBar {
+    flex-direction: column;
+  }
+
+  .topActionsBar button {
+    width: 100%;
+  }
+
+  .columnBar {
+    flex-wrap: wrap;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

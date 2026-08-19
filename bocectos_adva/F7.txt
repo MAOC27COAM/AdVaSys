@@ -1,0 +1,37 @@
+ 
+
+-modificar el tiempo en sección por roles--->ECHO
+-terminar y habilitar el modulo de resultados del rol estudiante --->ECHO
+-agregar filtros en cada modulo para saber en que ciclo se abrió y se cerro.--->ECHO
+
+-de alguna forma solucionar la subida y descarga de alumnos 
+-hacer que se respete el tiempo que se le pone a la creación de un ciclo.
+-Que el admin tenga la facultad de crear y cerrar ciclos de estudio
+
+modulo de matricula
+PRIORIDAD
+--revisar la lógica para el manejo de personas que faltan pagar y los que no - -saber como se están guardando estos datos
+--Como poder subir y descargar una lista de varios alumnos 
+--solucionar el error de el componente edad
+--
+
+MODULO DE ASISTENCIA
+-Poder borrar una sesión no termina ---> ECHO
+-poder hacer que funcione con celular el scanner que esta fallando ---> se soluciona con un HTTPS
+-que la asistencia envie un mensaje al padre o apoderado del estudiante al terminar la sección de asistencia 
+
+modulo de simulacros	
+PRIORIDAD
+-HABILITAR LA FUNCIONALIDAD DE SUBIR RESULTADOS YA PROCESADOS 
+
+modulo de material
+-habilitar la subida de imágenes también , ya subida de imagen de portada del curso
+-habilitar el botón de editar .borrar: curso, y borrar material---> ECHO
+
+MODULO GESTIO<->USUARIO
+-habilitar para realizar consultas de estudiantes que pagaron y los que no con un alógica básica
+
+
+-INVESTIGAR LA FIABILIDAD DE LA ISNTALACION CON DOCKER Y WSL2
+-REVIZAR LO QUE SE ESTABA PIDIENDO SOBRE LA ASISTENCIA Y EL MATERIAL
+-ENTENDER COMO SUBIR UN DB AL SISTEMA QUE SE ESTA DESARROLLANDO 

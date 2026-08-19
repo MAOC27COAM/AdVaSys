@@ -1,0 +1,435 @@
+/* ================================================= */
+/* Dashboard.module.css - Inspirado en Login.module.css */
+/* ================================================= */
+
+/* ===== CONTENEDOR PRINCIPAL DEL DASHBOARD ===== */
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background: url('/public/img_fondo_login.png') center/cover fixed;
+  position: relative;
+}
+
+/* Capa de overlay para mejor legibilidad */
+.dashboardContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.85);
+  z-index: 0;
+}
+
+/* ===== HEADER DEL DASHBOARD ===== */
+.dashboardHeader {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-height);
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(20px);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.headerContent {
+  height: 100%;
+  padding: 0 var(--spacing-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+/* ===== TÍTULO DEL DASHBOARD ===== */
+.dashboardTitle {
+  color: #ff1900;
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0;
+  text-shadow: 
+    2px 2px 0px #652525,
+    -2px -2px 0px #ef1414,
+    0 0 10px rgba(255, 255, 255, 0.7);
+  letter-spacing: 2px;
+}
+
+/* ===== INFORMACIÓN DEL USUARIO ===== */
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.userInfo:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.userIcon {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ===== BADGES DE ROLES ===== */
+.userRole {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px var(--spacing-sm);
+  border-radius: 12px;
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Roles con colores vibrantes */
+.role-admin,
+.role-kami {
+  background: linear-gradient(135deg, #ff1900, #cc1400);
+  box-shadow: 0 2px 8px rgba(255, 25, 0, 0.4);
+}
+
+.role-matriculador {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
+}
+
+.role-teacher {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+}
+
+.role-student {
+  background: linear-gradient(135deg, #10b981, #047857);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+/* ===== BOTÓN DE LOGOUT ===== */
+.logoutButton {
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.logoutButton:hover {
+  background: var(--color-accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+}
+
+.logoutButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
+}
+
+/* ===== LAYOUT PRINCIPAL ===== */
+.dashboardMain {
+  flex: 1;
+  display: flex;
+  position: relative;
+  z-index: 1;
+}
+
+.dashboardContentArea {
+  flex: 1;
+  padding: var(--spacing-xl);
+  overflow-y: auto;
+  min-height: calc(100vh - var(--header-height));
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== ESTADO DE CARGA ===== */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background: url('/public/img_fondo_login.png') center/cover fixed;
+  position: relative;
+}
+
+/* Overlay para loading */
+.loadingContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.9);
+  z-index: 0;
+}
+
+.loadingContainer p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: var(--spacing-lg);
+  position: relative;
+  z-index: 1;
+}
+.mobileMenuBtn {
+  display: none; /* Oculto en PC */
+}
+
+@media (max-width: 768px) {
+  .mobileMenuBtn {
+    display: block; /* Visible solo en móviles */
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+  }
+}
+/* ===== SPINNER DE CARGA ===== */
+.loadingSpinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(124, 58, 237, 0.3);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spinner 0.8s linear infinite;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== SCROLLBAR PERSONALIZADA ===== */
+.dashboardContentArea::-webkit-scrollbar {
+  width: 10px;
+}
+
+.dashboardContentArea::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.dashboardContentArea::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-primary), var(--color-accent));
+  border-radius: var(--border-radius-sm);
+}
+
+.dashboardContentArea::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-dark);
+}
+
+/* ===== RESPONSIVE - TABLET ===== */
+@media (max-width: 1024px) {
+  .headerContent {
+    padding: 0 var(--spacing-lg);
+  }
+
+  .headerLeft {
+    gap: var(--spacing-lg);
+  }
+
+  .dashboardTitle {
+    font-size: 1.5rem;
+  }
+
+  .dashboardContentArea {
+    padding: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboardHeader {
+    height: 60px;
+  }
+
+  .headerContent {
+    padding: 0 var(--spacing-md);
+  }
+
+  .headerLeft {
+    gap: var(--spacing-md);
+  }
+
+  .dashboardTitle {
+    font-size: 1.25rem;
+    text-shadow: 
+      1px 1px 0px #652525,
+      -1px -1px 0px #ef1414,
+      0 0 8px rgba(255, 255, 255, 0.6);
+  }
+
+  .userInfo {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .userIcon {
+    font-size: 1.1rem;
+  }
+
+  .userRole {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+  }
+
+  .logoutButton {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: 0.8125rem;
+  }
+
+  .dashboardContentArea {
+    padding: var(--spacing-md);
+  }
+}
+
+/* ===== RESPONSIVE - MÓVIL ===== */
+@media (max-width: 480px) {
+  .dashboardContainer {
+    background-attachment: scroll;
+  }
+
+  .dashboardHeader {
+    height: auto;
+    min-height: 60px;
+  }
+
+  .headerContent {
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+  }
+
+  .headerLeft {
+    width: 100%;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+  }
+
+  .dashboardTitle {
+    font-size: 1.125rem;
+  }
+
+  .userInfo {
+    order: 2;
+  }
+
+  .logoutButton {
+    order: 3;
+    width: 100%;
+    padding: var(--spacing-sm);
+    justify-content: center;
+  }
+
+  .dashboardContentArea {
+    padding: var(--spacing-sm);
+    min-height: calc(100vh - 80px);
+  }
+
+  .loadingSpinner {
+    width: 50px;
+    height: 50px;
+    border-width: 3px;
+  }
+
+  .loadingContainer p {
+    font-size: 1rem;
+  }
+}
+
+/* ===== ACCESIBILIDAD ===== */
+@media (prefers-reduced-motion: reduce) {
+  .loadingSpinner {
+    animation: none;
+    border-top-color: transparent;
+    border-right-color: var(--color-primary);
+  }
+
+  .userInfo:hover,
+  .logoutButton:hover {
+    transform: none;
+  }
+
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ===== ESTADOS DE FOCUS ===== */
+.logoutButton:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.userInfo:focus-within {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 2px;
+}
+
+/* ===== EFECTOS DECORATIVOS ===== */
+.dashboardHeader::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(124, 58, 237, 0.5),
+    rgba(249, 115, 22, 0.5),
+    transparent
+  );
+  opacity: 0.7;
+}
+
+/* Efecto sutil de brillo en roles al hover */
+.userRole:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}

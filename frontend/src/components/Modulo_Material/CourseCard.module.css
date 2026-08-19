@@ -1,0 +1,157 @@
+/* Contenedor Principal de la Tarjeta */
+.courseCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.courseCard:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(249, 115, 22, 0.5); /* Naranja sutil al hover */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 
+              0 0 15px rgba(249, 115, 22, 0.1);
+}
+
+/* Sección de la Imagen */
+.courseCardImage {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background: #0f172a;
+  overflow: hidden;
+}
+
+.courseCardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.courseCard:hover .courseCardImage img {
+  transform: scale(1.1);
+}
+
+/* Placeholder cuando no hay imagen */
+.courseCardPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+/* Badge de Modalidad */
+.modalityBadge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 5px 14px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Contenido de la Tarjeta */
+.courseCardContent {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.courseCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.courseCardTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #f3f4f6;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.courseCardDescription {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+/* Botón Ver Más */
+.expandButton {
+  background: none;
+  border: none;
+  color: #f97316;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0;
+  cursor: pointer;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.expandButton:hover {
+  text-decoration: underline;
+}
+
+/* Footer con Metadatos */
+.courseCardFooter {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* Botón Principal de Acción */
+.viewCourseButton {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f3f4f6;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.courseCard:hover .viewCourseButton {
+  background: #f97316;
+  color: white;
+  border-color: #f97316;
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+}
+
+/* Acciones de Admin (Editar/Eliminar) */
+.courseCardActions {
+  display: flex;
+  gap: 8px;
+}
+
+/* --- Ajuste para el JS --- */
+/* Si usas CSS Modules, recuerda cambiar en tu CourseCard.js: 
+   className="course-card" -> className={styles.courseCard} 
+*/

@@ -1,0 +1,16 @@
+modulo de matricula
+-el acuerdo de pago se aumenta un nuevo campo para completar opcional de "monto inicial"
+-En la tabla de PaymentAgreement se agrega dos nuevos atributo, una que gestionara el monto que aun falta pagar y que dismunuira(monto_actal_pendiente = monto_total_a_pagar - monto_inicial_que_pago), y el otro que se usara para guardar el nuemro de recibo
+
+Modulo_pagos
+-este modulo servirá para gestionar los pagos de los estudiantes.y que trabajara con la tabla PaymentAgreement y la tabla Paymentinstallment , además de una nueva tabla para gestionar el historial de pagos que registrara
+-en modulo tendrá una barra de búsqueda en la que solo se consultara el DNI, y este me tiene que dar los siguientes datos. en un primer panel
+	-nombre y apellido
+	-modalidad
+	-El monto tatal a pagar
+	-El monto pendiente
+	-Una opción para realizar un pago e ingresar el monto
+	-Tipo de acuerdo
+	-Cuotas acordadas
+	-además de una opción, un botón rojo de "dar de baja", en la que cambiara el estado del usuario de Activo a Retirado
+- se tendrá un segundo panel en el que se enlistara de filas los pagos realizados por el primer panel y cada fila tendrá el DNI, hora, fecha, monto , monto aun faltante , numero de recibos que se obtiene de la tabla

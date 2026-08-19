@@ -1,0 +1,21 @@
+.paymentsModule {
+  padding: 2rem;
+  color: #f3f4f6;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.accessDenied,
+.notice {
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f3f4f6;
+}
+
+@media (max-width: 768px) {
+  .paymentsModule {
+    padding: 1rem;
+  }
+}

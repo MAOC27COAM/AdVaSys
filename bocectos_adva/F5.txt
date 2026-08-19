@@ -1,0 +1,12 @@
+MODULO DE ASISTENCIA
+-ABILITAR LA FUNCIONALIDAD DE ESCANEO DE QR PARA LA ASISTENCIA AUTOMATICA
+-MEJORAR LA INTERFAZ DEL MODULO DE ASISTENCIA(OPCIONAL)
+-MEJORAR LA INTERFAZ DE GESTION DE ASISTENCIA EN LA QUE SE TIENE 2 PANELES DE LAS SECIONES REALIZADAS
+-añadir un bucador en la asistencia 
+Soporte para "Tardanzas" (Late)
+Lo que hace: Definir una hora de inicio de tolerancia. Si el alumno marca después de esa hora, el sistema lo registra automáticamente como LATE en lugar de PRESENT.
+
+Cambio técnico: Comparar el new Date() del registro con el StartTime de la sesión.
+
+Modo "Auto-Escaneo" Continuo
+Lo que hace: Optimizar el escáner para que no se detenga ni muestre alertas intrusivas, permitiendo que una fila de 50 alumnos pase rápido (con sonidos de "Beep" de éxito/error).

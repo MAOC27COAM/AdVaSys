@@ -1,0 +1,42 @@
+# =============================================================================
+# INTRANET ADUNI VALLEJO - GITIGNORE GLOBAL
+# =============================================================================
+# Nunca subir secretos, datos de ejecución ni dependencias.
+# =============================================================================
+
+# Dependencias
+node_modules/
+
+# Variables de entorno (NUNCA subir secretos)
+**/.env
+**/.env.*
+!**/.env.example
+
+# Datos de ejecución y persistentes
+deploy/runtime/
+backend/uploads/
+backend/tmp/
+backend/backups/
+
+# Landing page separada (mantiene su propio repositorio en GitHub)
+WEB/
+
+# Respaldos y datos locales
+*.sql.bak
+backup_local.sql
+resultados.xlsx
+
+# Logs
+*.log
+npm-debug.log*
+
+# Archivos temporales de Office
+~$*
+
+# Artefactos de depuración
+backend/test_env.js
+backend/prisma.config.ts.bak
+
+# Sistema operativo
+Thumbs.db
+.DS_Store

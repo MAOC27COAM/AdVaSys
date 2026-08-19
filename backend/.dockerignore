@@ -1,0 +1,12 @@
+# Ignorar la carpeta de dependencias local, ya que se instalarán dentro del contenedor.
+node_modules
+uploads
+tmp
+
+# Ignorar el archivo de variables de entorno local.
+# Estas se inyectan a través de docker-compose.
+.env
+.env.production
+
+# Ignorar logs de npm
+npm-debug.log

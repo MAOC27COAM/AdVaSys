@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "Schedule" ADD VALUE 'TURNO_COMPLETO';

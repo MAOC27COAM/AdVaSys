@@ -1,0 +1,129 @@
+Gestión de usuarios: alumnos, docentes, administradores.
+Módulo académico: cursos, horarios, calificaciones, asistencia.
+Módulo de comunicación: anuncios, mensajería interna, foros.
+Módulo documental: subida/descarga de archivos, tareas.
+Módulo administrativo: pagos, matrículas, reportes.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+que sea como una red social
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+que sea local luego se suva a la nube
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+DIFERENCIA DE COSTES OPERACIONALES DE SERVICIO DE ALMACENAMIENTO EN LA NUBE
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+se desarrollara una BD Cloud-Ready ------------ estricta nomalizacion en el diseño de la arquitectura- y fragmentación
+- QUE EL ADMINSITRADOR INICIE NUEVOS CICLOS
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+PREGUNTAS
+-trazar los limites en las que la IA me puede ayudar de manera eficiente y sin equivocaciones
+-y en que coas me debo de cuidar al usar la IArk
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+DESARROLLO DE NUEVOS MODULOS PANEL DED MATRICULADO
+-MEJORAR LA INTERFAZ DE MATRICULADOR- TANTO PARA MATRICULAR COMO PARA SUBIR MATERIAS
+--Al matricular se tiene que añadir la función de fecha en el tema de pago(que días va a pagar el estudiante en tema de tipo de inversión "por partes" y en "Mensualidad" que este se divida al seleccionar la cantidad de meses al monto total que se ingresara)
+--En el formulario al matricular se tiene quitar la opción de Gmail y contraseña, y añadir la opción de DNI y colegio de procedencia. teléfono,
+--apartado de datos opcionales de edad, gemail, lugar de procedencia.
+--En "modalidad" el PRE_U, primera Opción, tiene que añadir el una barra en la que se escoje la opción de "Grupo" A, B ,C ,D ,F ,G.. En el caso de Modalidad segundaria este añade la opción de "Grado" de 1, 2 ,3 ,4 ,5
+Elimina el sesgo de adulación.
+
+--ACTUALIZACION DE TABLAS--
+-Añadir a la tabla users el atributo de "nombre de usruario", y que el atributo documentId sea un campo obligatorio
+-que en la tabla de Studentprofile se añada los datos edad , colegio de procedencia como campos no obligatorios
+--en la tabla también el atributo modality que tiene 6 tipos y 3 de estos tiene sus subtipos
+---modalidad
+----PRE_U->grupo : A, B, C, D, E, F
+----Primera_opcion -> grupo: A, B, C, D, E, F
+----Segundaris -> sección : 1, 2, 3, 4, 5
+----COAR->(sin subtipos)
+----primaria
+----beca_18
+Evalua la actualizacion que se quiere implementar.
+
+--ACTUALIZACION DEL BACKEND--
+-al realizar una registro de ususario, sentremonos que user->Student, en que al atraves del formulario del frontend este tiene que ingresar a la babse de datos los datos: nombre, apellido, Dni ,modalidad->grupo o sección, horario, tipo de inversión y
+--- endpoint-> para obtener la información de un estudiante en especifico
+
+
+--CREAR EL MODULO PARA CURSO (COMPARTIR MATERIAL)--
+-"Descripcion"= El modulo cursos funcionara como espacio para solo compartir información, El Matriculador y Teacher, pueden editar y subir material, pdf, Word, imágenes, y solo estudiantes puedan visualizar(en la misma web como lo hace el drive de Google con la previsualización de los documentos) y poder descargar los archivos
+
+poder crear un curso, nombre, codigo(este se crear automaticamente), descripción, seleccionar las modalidades que tendrán accesos a es este curso
+que los usuarios que pertenezcan a una modalidad en especifica, puedan acceder a los cursos(material) que se le permiten.
+REALIZA UNA EVALUACION PARA REALIZAR LOS CAMBIOS NECESARIOS EN LA TABLA CURSO, Y LAS CARDINALIDADES.
+
+-
+-MEJORA EN LOS PANELES DE SIMLUACROS
+--QUE TODOS LOS PANELES SE UNAN EN UNA SOLA CON OPCIONES DE PARA LAS MODALIDADES DE SIMULACROS
+-- EL UNICO PANEL DEBE DE TENER, TIPO DE MODALIDAD(PARA ESCOJER LA MODALIDAD), NOMBRE DEL SIMULACRO ,
+
+NUEVOS DATOS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-MODUOLO DE MATRICULA(MATRI)
+--poder subir la foto opcionalmente
+--poder editar el un registro de estudiante
+
+-MODULO DE SUBIR MATERIALES(ESTUDIANTE,MATRI)
+--poder editar el registro de la creacion del curso por parte del matri y no por el estudiante
+--poder sibir material por parte del matri con una descricion.
+--poder darle una imagen en la creación del curso
+--poder ver los materiales de cada curso creado , en forma de carpeta(pa pagina por defecto del pdf se muestre) con la fecha en la que subio
+--al hacer click a un archivo, este de una previsualización del archivo y opcion de descargar, tipo drive
+
+
+-MODULO DE SIMULACROS(MATRI)(consideracion)
+--crear simulacro por modalidad y grupo
+--verificación antes de subir el exel
+--poder preingresar un registro de comparación y revicion de usuarios registrador en el Excel subido por parte del sistema con la BD
+--poder crear un "Fomato simulacro" al que se subirán los archivos "crudos"(lista en Excel que tiene el codigo y las 100 respuestas de cada fila) por modalidad y grupo, en el que se especifica los parámetros de los temas(de la pregunta 1 a la 10 algebra,11 a 20 geometri, 21 a 25 hisoria etc, esto pudiensoce agregar)
+--para subir los resultados "crudos" ya habiendo creado el formato por modalidad, este me permitirá visualizar el archivo subido e ingresar las respuestas correctar de cada pregunta en un pequeño formulario con lo que se comparara. y se obtendrá los resultados ya procesados en una label que puedo abrir, en el que se vera por ejemplo el usuario "98765432" tiene de 60(parametro limitaror para no aceptar mas de 60 respuestas de preguntas) aritmtica"2",algebra"9",historia"5", teniendo una columna de total.
+
+
+
+-MODULODE ASISTENACIA(MATRI)
+--enlista a todos los estudiantes, y conectar a una cámara para escanear la asistencia de cada estudiante que se acerque con su QR
+--dentro del modulo tener las misma logiaca que en usuarios, en la que se puede filtrar la lista por grupo (quitar y aggragar columna)
+-- en el caso de los docentes se crea otra lista que se relaciona con el modulo horario(crear una lógica para relacionarla futuramente)
+
+
+
+-MODULO DE HORARIOS (ESTUDIANTE)(MATRI)
+--crear un horario para cada modalidad y grupo, al igual que se crea un curso, solo lo pueden ver los lumnos permitidos,
+--al crear una horario , el modulo proporcionnara una plantilla de la semana en la que se rellenara.
+--al crear un horario
+--que los horarios también se puedan imprimir en pdf
+-- cada horario va a estar visible en el modulo de horarios
+
+-MODULO DE CALIFICACIONES(ESTUDIANTE)
+-en modulo de calificaciones, este se relacionara con el modulo de simulacro.
+el alumno únicamente puede ver sus resultados de los simulacros de la modalida a la que pertenece
+-el modulo mostrara un grafico en la que se muestra su desarrollo por simulacro, de cada tematicca y un cuadro abajo en la que se muestra los resultados de los últimos simulacros dados.
+
+-MODULO DE USUARIOS(matri)
+-- poder generar pdf de la lista que se genera en la table por personalización del matriculador
+-- añadir filtrados
+-- filtrado de quienes(estuidiantes) flatan pagar por dia y en rojo
+--poder añadir y quitar columnas esto mas con la finalidad de imprimir dpf con listas especificas de estudiantes de grupos, estudiantes que faltan pagar etc.
+ 
+-MODULO DE (ESTUDIANTE)
+--EN LA ESQUINA SUPERIOR DERECHA EN LA QUE ESTA EL BOTON DE CERRAR SECCION, MODIFICAR
+--QUE EN ESE LUGAR ESTE EL ICONO DE SECCION O USUARIO EN EL QUE AL REALIZAR EL CLICK ME DE LAS OPCIONES DE CERRAR SECCION, EDITAR PERFIL
+--AL INGRESAR A LA OPCION DE EDITAR, SALGA UN LABEL EN LA QUE SOLO ESTE SU NOMBRE DE USUARIO , CONTRASEÑA, FOTO, gemail.
+--TODO SOBRE EL MODULO DE ESUARIO TIEN QUE SER PREVIAMENTE EVALUADO Y ANALISIADAO , SI HAY FACTIVILIDAD DE RAELIZARLO CON EL ESTRUCTURA ACTUAL DEL SISTEMA
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-comunicados y notificaciones(studiantes, )
+
+LAS FUNCIONES DE UN ADMINISTRADOR, SON DE
+PREGUNTAS A REALIZAR
+
+CUANTOS CURSOS TIENENQUE CALIFICAR Y CUATNAS PREGUNTAS BIENEN
+
+
+--CONSIDERACIONES--
+-ASISTENCIA
+-el tema de matricula el monto tiene que ser predeterminado o no!!!?

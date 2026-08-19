@@ -1,0 +1,578 @@
+/* ================================================= */
+/* EnrollmentModule.module.css - Premium Glassmorphism Style */
+/* Fusión de Login.css + EnrollmentModule estilos */
+/* Sistema Académico Intranet Aduni Vallejo */
+/* ================================================= */
+
+/* ===== SECCIÓN 1: CONTENEDOR PRINCIPAL CON FONDO ===== */
+.enrollmentModuleContainer {
+  width: 100%;
+  min-height: 100vh;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: url('/public/img_fondo_login.png') center/cover fixed;
+  position: relative;
+}
+
+/* Capa de overlay oscuro para mejor legibilidad (como Login) */
+.enrollmentModuleContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.75);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Todo el contenido debe estar por encima del overlay */
+.enrollmentModuleContainer > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== SECCIÓN 2: HEADER DEL MÓDULO (GLASSMORPHISM PREMIUM) ===== */
+.moduleHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.moduleHeader:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: var(--spacing-xl);
+  border-left: 5px solid #f97316;
+  padding-left: 15px;
+}
+
+.cycleSelectorWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* ===== SECCIÓN 3: TARJETA DE TABLA (GLASSMORPHISM PREMIUM) ===== */
+.studentTableCard {
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.studentTableCard:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== SECCIÓN 4: BARRA DE CONTROLES ===== */
+.tableControlsBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.searchBarWrapper {
+  flex: 1;
+  max-width: 450px;
+}
+
+/* Estilos para el input de búsqueda (glassmorphism) */
+.searchBarWrapper input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: rgba(30, 41, 59, 0.3);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.searchBarWrapper input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.searchBarWrapper input:focus {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(30, 41, 59, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== SECCIÓN 5: BOTÓN DE MATRÍCULA (ESTILO LOGIN) ===== */
+.enrollStudentButton {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: #f97316;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  white-space: nowrap;
+}
+
+.enrollStudentButton:hover:not(:disabled) {
+  background: #ea580c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+}
+
+.enrollStudentButton:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
+}
+
+.enrollStudentButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.sheetButton {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: rgba(37, 99, 235, 0.16);
+  color: #dbeafe;
+  border: 1px solid rgba(147, 197, 253, 0.42);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.sheetButton:hover:not(:disabled) {
+  background: rgba(37, 99, 235, 0.24);
+  transform: translateY(-2px);
+}
+
+.sheetButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.bottomActionsBar {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-md);
+}
+
+.bottomActionsGroup {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.importButton {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: rgba(249, 115, 22, 0.16);
+  color: #fed7aa;
+  border: 1px solid rgba(251, 146, 60, 0.42);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.importButton:hover:not(:disabled) {
+  background: rgba(249, 115, 22, 0.24);
+  transform: translateY(-2px);
+}
+
+.importButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.cycleClosedNotice {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 12px;
+  color: #fecaca;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ===== SECCIÓN 6: CONTENIDO DE LA TABLA ===== */
+.tableContent {
+  min-height: auto;
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--spacing-md);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tableContent table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableContent table th,
+.tableContent table td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tableContent table th {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(30, 41, 59, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tableContent table tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Scrollbar personalizada elegante (estilo glassmorphism) */
+.tableContent::-webkit-scrollbar {
+  width: 10px;
+}
+
+.tableContent::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 5px;
+}
+
+.tableContent::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.tableContent::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.3));
+}
+
+/* ===== SECCIÓN 7: TÍTULO DEL PIE DE TABLA ===== */
+.tableFooterTitle {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-sm);
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: left;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== SECCIÓN 8: ESTADOS DE CARGA Y ERROR ===== */
+.enrollmentLoading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.enrollmentLoading::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: var(--spacing-sm);
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.enrollmentError {
+  padding: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+  background: rgba(239, 68, 68, 0.2);
+  border: 2px solid rgba(239, 68, 68, 0.6);
+  border-radius: 12px;
+  color: #fca5a5;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.noStudents {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 12px;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  font-weight: 500;
+}
+
+.noCycleSelected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+  padding: var(--spacing-xl);
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.noCycleSelected p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  margin: 0;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== SECCIÓN 9: ACCESO DENEGADO ===== */
+.noAccess {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+  padding: var(--spacing-xl);
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(239, 68, 68, 0.6);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.noAccess h3 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #fca5a5;
+  text-align: center;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.importButton2 {
+    font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280 ;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 0.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  }
+/* ===== SECCIÓN 10: RESPONSIVE DESIGN ===== */
+
+/* Tablet - 1024px */
+@media (max-width: 1024px) {
+  .enrollmentModuleContainer {
+    padding: var(--spacing-md);
+  }
+
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+
+  .tableControlsBar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+
+  .searchBarWrapper {
+    max-width: 100%;
+  }
+
+  .enrollStudentButton {
+    width: 100%;
+  }
+
+  .sheetButton {
+    width: 100%;
+  }
+
+  .bottomActionsBar {
+    justify-content: stretch;
+  }
+
+  .bottomActionsGroup {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .importButton {
+    width: 50% !important;
+  }
+}
+
+/* Móvil - 768px */
+@media (max-width: 768px) {
+  .enrollmentModuleContainer {
+    padding: var(--spacing-sm);
+  }
+
+  .moduleHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .pageTitle {
+    font-size: 1.3rem;
+  }
+
+  .cycleSelectorWrapper {
+    width: 100%;
+  }
+
+  .studentTableCard {
+    padding: var(--spacing-md);
+  }
+
+  .tableContent {
+    max-height: 450px;
+    padding: var(--spacing-sm);
+  }
+
+  .tableFooterTitle {
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+  }
+}
+
+/* Móvil pequeño - 480px */
+@media (max-width: 480px) {
+  .enrollmentModuleContainer {
+    padding: var(--spacing-xs);
+  }
+
+  .moduleHeader {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 16px;
+  }
+
+  .pageTitle {
+    font-size: 1.1rem;
+  }
+
+  .studentTableCard {
+    padding: var(--spacing-sm);
+    border-radius: 16px;
+  }
+
+  .tableControlsBar {
+    gap: var(--spacing-xs);
+    padding-bottom: var(--spacing-xs);
+  }
+
+  .enrollStudentButton {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: 0.9rem;
+  }
+
+  .tableContent {
+    max-height: 400px;
+  }
+
+  .tableContent table th,
+  .tableContent table td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== SECCIÓN 11: ANIMACIONES ===== */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== SECCIÓN 12: ACCESIBILIDAD ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .enrollStudentButton:hover {
+    transform: none;
+  }
+
+  .moduleHeader:hover,
+  .studentTableCard:hover {
+    transform: none;
+  }
+}
+
+/* Mejora de contraste para accesibilidad */
+@media (prefers-contrast: high) {
+  .moduleHeader,
+  .studentTableCard {
+    border-color: rgba(255, 255, 255, 0.8);
+    border-width: 3px;
+  }
+
+  .tableControlsBar {
+    border-bottom-color: rgba(255, 255, 255, 0.8);
+    border-bottom-width: 3px;
+  }
+
+  .enrollmentError,
+  .noAccess {
+    border-width: 3px;
+  }
+
+  .tableContent table th,
+  .tableContent table td {
+    color: white;
+  }
+}

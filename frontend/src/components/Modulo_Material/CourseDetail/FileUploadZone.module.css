@@ -1,0 +1,165 @@
+.uploadCard {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+.formContainer {
+  max-height: 85vh;      /* 🛡️ Limita el alto al 85% de la pantalla */
+  overflow-y: auto;      /* Permite ver el resto del formulario si es largo */
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #1e293b;
+  border-radius: 16px;
+}
+.header {
+  margin-bottom: 20px;
+}
+
+.header h3 {
+  color: #f1f5f9;
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+/* FORM */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* DROP ZONE */
+.dropZone {
+  position: relative;
+  border: 2px dashed #334155;
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+  background: #020617;
+  transition: all 0.2s ease;
+}
+
+.dropZone:hover {
+  border-color: #f59e0b;
+}
+
+.hasFile {
+  border-color: #22c55e;
+}
+
+.dragging {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.08);
+}
+
+/* INPUT HIDDEN */
+.hiddenInput {
+  display: none;
+}
+
+.fileLabel {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+}
+
+.icon {
+  font-size: 2rem;
+}
+
+.fileInfo {
+  display: flex;
+  flex-direction: column;
+  color: #f1f5f9;
+}
+
+.fileInfo small {
+  color: #64748b;
+}
+
+/* REMOVE BTN */
+.removeBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #e11d48;
+  border: none;
+  color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* INPUT */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputGroup label {
+  color: #cbd5f5;
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+}
+
+.input {
+  background: #020617;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 10px;
+  color: white;
+}
+
+/* ERROR */
+.error {
+  background: #7f1d1d;
+  color: #fecaca;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* ACTIONS */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel {
+  background: #1e293b;
+  border: none;
+  color: #cbd5f5;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submit {
+  background: #f59e0b;
+  border: none;
+  color: #020617;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

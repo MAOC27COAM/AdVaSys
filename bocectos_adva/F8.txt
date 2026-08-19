@@ -1,0 +1,34 @@
+
+-de alguna forma solucionar la subida y descarga de alumnos - RESPALDOS DE BASE DE DATOS
+-hacer que se respete el tiempo que se le pone a la creación de un ciclo.
+-Que el admin tenga la facultad de crear y cerrar ciclos de estudio
+
+Modulo de pago<--- DESPUES DE LA INSTALACION 
+-tendrá dos partes
+--registros de pago- En la que se enlista de manera resumida todos los pagos realizados durante el dia(fehca, hora, monto, numero-operación,estudiante) 
+-tendrá un buscador en la que se consultara en codigo
+
+modulo de matricula
+PRIORIDAD
+--revisar la lógica para el manejo de personas que faltan pagar y los que no - -saber como se están guardando estos datos
+--Como poder subir y descargar una lista de varios alumnos 
+--solucionar el error de el componente edad
+-- QUE pasando el periodo de ciclo el modulo no permita realizar matriculas ni ediciones
+
+MODULO DE ASISTENCIA
+-que la asistencia envie un mensaje al padre o apoderado del estudiante al terminar la sección de asistencia 
+
+modulo de simulacros	
+PRIORIDAD
+-HABILITAR LA FUNCIONALIDAD DE SUBIR RESULTADOS YA PROCESADOS 
+
+modulo de material
+-habilitar la subida de imágenes también , ya subida de imagen de portada del curso
+
+MODULO GESTIO<->USUARIO
+-habilitar para realizar consultas de estudiantes que pagaron y los que no con un alógica básica
+
+
+-INVESTIGAR LA FIABILIDAD DE LA ISNTALACION CON DOCKER Y WSL2
+-REVIZAR LO QUE SE ESTABA PIDIENDO SOBRE LA ASISTENCIA Y EL MATERIAL
+-ENTENDER COMO SUBIR UN DB AL SISTEMA QUE SE ESTA DESARROLLANDO 

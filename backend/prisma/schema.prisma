@@ -1,0 +1,383 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Role {
+  id          Int    @id @default(autoincrement())
+  name        String @unique
+  permissions Json?
+  users       User[]
+}
+
+model User {
+  id                  Int                  @id @default(autoincrement())
+  username            String               @unique
+  email               String?
+  password            String
+  firstName           String
+  lastName            String
+  documentId          String               @unique
+  profilePictureUrl   String?
+  phone               String?
+  address             String?
+  status              UserStatus           @default(ACTIVE)
+  mustChangePassword  Boolean              @default(true)
+  roleId              Int
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  auditLogs           AuditLog[]
+  files               File[]
+  studentProfile      StudentProfile?
+  teacherProfile      TeacherProfile?
+  role                Role                 @relation(fields: [roleId], references: [id])
+  cycleEnrollments    CycleEnrollment[]
+  simulationInstances SimulationInstance[]
+  simulationResults   SimulationResult[]
+  attendanceRecords   AttendanceRecord[]
+  classSessions       ClassSession[]
+  receivedPayments    PaymentTransaction[]
+}
+
+model StudentProfile {
+  id                 Int                @id @default(autoincrement())
+  userId             Int                @unique
+  modality           Modality
+  schedule           Schedule
+  age                Int?
+  schoolOfOrigin     String?
+  guardianName       String?
+  guardianPhone      String?
+  group              String?
+  section            String?
+  leaderboardEntries LeaderboardEntry[]
+  user               User               @relation(fields: [userId], references: [id])
+}
+
+model TeacherProfile {
+  id               Int       @id @default(autoincrement())
+  userId           Int       @unique
+  startDate        DateTime
+  endDate          DateTime?
+  employmentStatus String
+  specialty        String
+  academicDegree   String
+  user             User      @relation(fields: [userId], references: [id])
+}
+
+model Course {
+  id                Int              @id @default(autoincrement())
+  code              String           @unique
+  title             String
+  description       String?
+  imageUrl          String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  allowedModalities CourseModality[]
+  materials         File[]
+  classSessions     ClassSession[]
+}
+
+model CourseModality {
+  courseId Int
+  modality Modality
+  course   Course @relation(fields: [courseId],references: [id],onDelete: Cascade)
+  @@id([courseId, modality])
+}
+
+model File {
+  id           Int      @id @default(autoincrement())
+  name         String
+  path         String
+  mimeType     String? // RENOMBRADO Y MEJORADO
+  size         Int? // NUEVO: Tamaño en bytes
+  thumbnailUrl String? // NUEVO: URL de la miniatura
+  resource     String?
+  description  String?
+  uploadedBy   Int
+  uploadedAt   DateTime @default(now())
+  user         User     @relation(fields: [uploadedBy], references: [id])
+  courseId     Int?
+  course       Course?  @relation(fields: [courseId],references: [id],onDelete: Cascade)
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  action    String
+  resource  String
+  metadata  Json?
+  timestamp DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model LeaderboardEntry {
+  id               Int             @id @default(autoincrement())
+  modality         Modality
+  examName         String
+  studentName      String
+  score            Float
+  rank             Int
+  uploadedAt       DateTime        @default(now())
+  studentProfileId Int?
+  studentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id])
+
+  @@unique([modality, examName, studentName])
+}
+
+model Cycle {
+  id          Int               @id @default(autoincrement())
+  name        String            @unique
+  startDate   DateTime
+  endDate     DateTime
+  status      String
+  enrollments CycleEnrollment[]
+  simulationEvents SimulationEvent[]
+  simulationInstances SimulationInstance[]
+  attendanceSessions AttendanceSession[]
+}
+
+model CycleEnrollment {
+  id               Int               @id @default(autoincrement())
+  enrollmentDate   DateTime          @default(now())
+  userId           Int
+  cycleId          Int
+  user             User              @relation(fields: [userId], references: [id])
+  cycle            Cycle             @relation(fields: [cycleId], references: [id])
+  paymentAgreement PaymentAgreement?
+
+  @@unique([userId, cycleId])
+}
+
+model PaymentAgreement {
+  id                Int                  @id @default(autoincrement())
+  totalAmount       Float
+  initialPaymentAmount Float             @default(0)
+  currentPendingAmount Float
+  agreementType     PaymentAgreementType
+  createdAt         DateTime             @default(now())
+  cycleEnrollmentId Int                  @unique
+  cycleEnrollment   CycleEnrollment      @relation(fields: [cycleEnrollmentId], references: [id])
+  installments      PaymentInstallment[]
+  transactions      PaymentTransaction[]
+}
+
+model PaymentInstallment {
+  id                 Int               @id @default(autoincrement())
+  dueDate            DateTime
+  amount             Float
+  status             InstallmentStatus @default(PENDING)
+  paidAt             DateTime?
+  paymentAgreementId Int
+  paymentAgreement   PaymentAgreement  @relation(fields: [paymentAgreementId], references: [id])
+}
+
+model PaymentTransaction {
+  id                         Int                    @id @default(autoincrement())
+  paymentAgreementId         Int
+  amountPaid                 Float
+  remainingAmountAfterPayment Float
+  receiptNumber             String?
+  paymentType               PaymentTransactionType
+  description               String?
+  paidAt                    DateTime               @default(now())
+  receivedById              Int
+  paymentAgreement          PaymentAgreement       @relation(fields: [paymentAgreementId], references: [id], onDelete: Cascade)
+  receivedBy                User                   @relation(fields: [receivedById], references: [id])
+}
+
+// --- MODELOS DE SIMULACRO ACTUALIZADOS ---
+model AcademicModality {
+  id                  Int                  @id @default(autoincrement())
+  name                String               @unique
+  // Campos existentes que podrían ser relevantes para la modalidad académica general
+  thematicSegments    Json?
+  maxQuestions        Int?
+  totalQuestions      Int?
+  createdAt           DateTime             @default(now())
+  
+  // Relación con los eventos de simulacro
+  simulationEvents    SimulationEventModalities[]
+}
+
+model SimulationEvent {
+  id                  Int                  @id @default(autoincrement())
+  cycleId             Int
+  name                String
+  totalQuestions      Int
+  thematicSeparation  Json?                // Ejemplo: [{"tema": "Física", "preguntas": [1, 20]}, {"tema": "Química", "preguntas": [21, 40]}]
+  answerKey           Json?                // Ejemplo: {"1": "A", "2": "C", ...}
+  createdAt           DateTime             @default(now())
+
+  cycle               Cycle                @relation(fields: [cycleId], references: [id])
+  modalities          SimulationEventModalities[]
+  simulationInstances SimulationInstance[]
+
+  @@unique([cycleId, name])
+}
+
+model SimulationEventModalities {
+  event       SimulationEvent  @relation(fields: [eventId], references: [id])
+  eventId     Int
+  modality    AcademicModality @relation(fields: [modalityId], references: [id])
+  modalityId  Int
+
+  @@id([eventId, modalityId])
+}
+
+model SimulationInstance {
+  id            Int                @id @default(autoincrement())
+  fileName      String
+  filePath      String
+  uploadedAt    DateTime           @default(now())
+  uploadedById  Int
+  eventId       Int
+  cycleId       Int?
+  importType    String?
+  importSummary Json?
+  event         SimulationEvent    @relation(fields: [eventId], references: [id])
+  uploader      User               @relation(fields: [uploadedById], references: [id])
+  cycle         Cycle?             @relation(fields: [cycleId], references: [id])
+  results       SimulationResult[]
+}
+
+model SimulationResult {
+  id                   Int                @id @default(autoincrement())
+  simulationInstanceId Int
+  studentId            Int
+  totalScore           Float
+  scoresBySegment      Json
+  rank                 Int?
+  rankByModality       Int?
+  rankByGroup          Int?
+  simulationInstance   SimulationInstance @relation(fields: [simulationInstanceId], references: [id])
+  student              User               @relation(fields: [studentId], references: [id])
+
+  @@unique([simulationInstanceId, studentId])
+}
+//--creamos nuevos modelos para la modificacion de la funcionalidad de assitencia--
+model AttendanceSession{//nueva tabla para el modulo de asistencia
+  id        Int             @id @default(autoincrement())
+  name      String?         //opcional: para decir si es truno mañana, tarde , o nocturno
+  StartTime DateTime        @default(now())
+  endTime   DateTime?       //se llena al terminar el proceso de asistencia
+  cycleId   Int?
+  cycle     Cycle?          @relation(fields:[cycleId],references:[id])
+  records   AttendanceRecord[] //Relacion con los registros adicionales
+}
+model AttendanceRecord {
+  id        Int              @id @default(autoincrement())
+  userId    Int
+  sessionId Int?              //Nueva clase foranea
+  timestamp DateTime         @default(now())
+  status    AttendanceStatus
+  
+  //creamos nuevos atributos para la nuevas funcionalidad
+  user      User             @relation(fields:[userId],references:[id])
+  session AttendanceSession? @relation(fields:[sessionId],references:[id])
+
+}
+
+
+
+
+
+
+model ClassSchedule {
+  id       Int            @id @default(autoincrement())
+  name     String
+  modality Modality
+  group    String
+  sessions ClassSession[]
+
+  @@unique([modality, group])
+}
+
+model ClassSession {
+  id           Int           @id @default(autoincrement())
+  scheduleId   Int
+  dayOfWeek    DayOfWeek
+  startTime    DateTime // MODIFICADO
+  endTime      DateTime // MODIFICADO
+  classroom    String?
+  observations String?
+  courseId     Int
+  teacherId    Int? // MODIFICADO
+  schedule     ClassSchedule @relation(fields: [scheduleId], references: [id])
+  course Course @relation(fields: [courseId],references: [id],onDelete: Cascade )
+  teacher      User?         @relation(fields: [teacherId], references: [id]) // MODIFICADO
+}
+
+// --- ENUMS ---
+enum EnrollmentStatus {
+  ACTIVE
+  COMPLETED
+  DROPPED
+}
+
+enum GradeType {
+  EXAM
+  QUIZ
+  PROJECT
+  FINAL
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+}
+
+enum Modality {
+  PRE_U
+  BECA_18
+  SECUNDARIA
+  PRIMARIA
+  COAR
+  PRIMERA_OPCION
+}
+
+enum Schedule {
+  TURNO_MANANA
+  TURNO_TARDE
+  TURNO_COMPLETO
+}
+
+enum PaymentAgreementType {
+  MONTHLY_INSTALLMENTS
+  CUSTOM_PARTS
+  SINGLE_PAYMENT
+}
+
+enum InstallmentStatus {
+  PENDING
+  PAID
+  OVERDUE
+}
+
+enum PaymentTransactionType {
+  INITIAL_PAYMENT
+  REGULAR_PAYMENT
+  DISCOUNT
+}
+
+// --- NUEVOS ENUMS ---
+enum UserStatus {
+  ACTIVE
+  RETIRED
+  OBSERVATION
+}
+
+enum DayOfWeek {
+  LUNES
+  MARTES
+  MIERCOLES
+  JUEVES
+  VIERNES
+  SABADO
+  DOMINGO
+}

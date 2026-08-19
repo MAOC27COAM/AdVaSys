@@ -1,0 +1,424 @@
+/* ─────────────────────────────────────────────
+   PaymentDashboard.module.css
+───────────────────────────────────────────── */
+
+/* ─── Contenedor principal ─── */
+
+.dashboardLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(340px, 0.9fr);
+  gap: 22px;
+  align-items: start;
+}
+
+/* ─── Header ─── */
+
+.header {
+  margin-bottom: 22px;
+}
+
+.header h2 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 8px;
+  letter-spacing: -0.4px;
+}
+
+.header p {
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: #94a3b8;
+  max-width: 720px;
+}
+
+/* ─── Buscador ─── */
+
+.searchSection {
+  margin-bottom: 0;
+}
+
+/* ─── Columnas ─── */
+
+.leftColumn,
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ─── Cards ─── */
+
+.card {
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 22px;
+  padding: 22px;
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 10px 34px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
+.card h3 {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #f3f4f6;
+  margin-bottom: 18px;
+  letter-spacing: 0.2px;
+}
+
+/* ─── Tabla wrapper ─── */
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 18px;
+}
+
+/* ─── Scroll personalizado ─── */
+
+.tableWrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tableWrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.22);
+  border-radius: 999px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.35);
+}
+
+/* ─────────────────────────────────────────────
+   INDICADORES PLEGABLES
+───────────────────────────────────────────── */
+
+.indicatorsSection {
+  margin-bottom: 22px;
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 22px;
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 10px 34px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
+.indicatorToggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 18px 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f3f4f6;
+  letter-spacing: 0.2px;
+  transition: background 0.2s ease;
+}
+
+.indicatorToggle:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.indicatorToggle svg {
+  color: #93c5fd;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.indicatorsBody {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.3s ease,
+    padding 0.3s ease;
+  padding: 0 22px;
+}
+
+.indicatorsOpen {
+  max-height: 400px;
+  opacity: 1;
+  padding: 0 22px 22px;
+}
+
+/* ─── Cards de indicadores ─── */
+
+.indicatorCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.indicatorCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 18px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.indicatorCard:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.indicatorCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.indicatorCategory {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: 0.2px;
+}
+
+.indicatorCount {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.indicatorSub {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #64748b;
+  margin-top: -4px;
+}
+
+.indicatorAmount {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #93c5fd;
+  letter-spacing: -0.3px;
+}
+
+/* ─────────────────────────────────────────────
+   HISTORIAL GENERAL
+───────────────────────────────────────────── */
+
+.historyByDay {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.historyDayBlock {
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ─── Header del día ─── */
+
+.historyDayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 20px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.10) 0%,
+      rgba(15, 23, 42, 0.35) 100%
+    );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.historyDayHeader h4 {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 4px;
+}
+
+.historyDayMeta {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.historyDaySubtotal {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #bfdbfe;
+  white-space: nowrap;
+}
+
+/* ─────────────────────────────────────────────
+   TABLA HISTORIAL
+───────────────────────────────────────────── */
+
+.historyTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.historyTable thead {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.historyTable th {
+  padding: 13px 16px;
+  font-size: 0.71rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  text-align: left;
+  color: #93c5fd;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+}
+
+.historyTable td {
+  padding: 13px 16px;
+  font-size: 0.83rem;
+  color: #e5e7eb;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+}
+
+.historyTable tbody tr {
+  transition:
+    background 0.22s ease,
+    transform 0.18s ease;
+}
+
+.historyTable tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* ─── Estados ─── */
+
+.placeholder {
+  padding: 26px 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #64748b;
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.error {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.22);
+  color: #fca5a5;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+
+@media (max-width: 1180px) {
+  .dashboardLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .rightColumn {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .header h2 {
+    font-size: 1.55rem;
+  }
+
+  .header p {
+    font-size: 0.88rem;
+  }
+
+  .historyDayHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .historyTable {
+    min-width: 700px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 16px;
+  }
+
+  .header {
+    margin-bottom: 18px;
+  }
+
+  .header h2 {
+    font-size: 1.35rem;
+  }
+
+  .card h3 {
+    font-size: 0.96rem;
+  }
+
+  .historyTable th,
+  .historyTable td {
+    padding: 12px 14px;
+  }
+
+  .indicatorCard {
+    padding: 14px 14px 14px;
+  }
+
+  .indicatorAmount {
+    font-size: 1rem;
+  }
+
+  .indicatorToggle {
+    padding: 14px 16px;
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 820px) {
+  .indicatorCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .indicatorCards {
+    grid-template-columns: 1fr;
+  }
+}

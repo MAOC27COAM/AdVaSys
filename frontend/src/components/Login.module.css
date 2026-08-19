@@ -1,0 +1,287 @@
+/* ================================================= */
+/* Login.module.css - Estilos con CSS Modules */
+/* ================================================= */
+
+/* ===== CONTENEDOR DE PÁGINA DE LOGIN ===== */
+.loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
+  background: url('/public/img_fondo_login.png') center/cover fixed;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* Capa de overlay para mejor legibilidad */
+.loginPage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.75);
+  z-index: 1;
+}
+
+/* ===== WRAPPER - CONTENEDOR DEL FORMULARIO ===== */
+.wrapper {
+  position: relative;
+  width: 420px;
+  background: rgba(30, 41, 59, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.wrapper:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== FORM BOX ===== */
+.formBox {
+  width: 100%;
+  padding: 40px;
+  text-align: center;
+}
+
+/* ===== TÍTULO ===== */
+.formBox h2 {
+  color: #ff1900;
+  font-size: 40px;
+  margin-bottom: 30px;
+  text-shadow: 
+    2px 2px 0px #652525,
+    -2px -2px 0px #ef1414,
+    0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+/* ===== INPUT BOX ===== */
+.inputBox {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  margin: 30px 0;
+  transition: border-color 0.3s ease;
+}
+
+.inputBox:focus-within {
+  border-bottom-color: rgba(255, 255, 255, 0.9);
+}
+
+/* ===== LABELS ===== */
+.inputBox label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  font-size: 1em;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.inputBox input:focus ~ label,
+.inputBox input:valid ~ label {
+  top: -5px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.75em;
+}
+
+/* ===== INPUTS ===== */
+.inputBox input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  padding: 5px 0;
+}
+
+.inputBox input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.inputBox input:-webkit-autofill,
+.inputBox input:-webkit-autofill:hover,
+.inputBox input:-webkit-autofill:focus {
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.9);
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ===== BOTÓN ===== */
+.btn {
+  width: 100%;
+  height: 45px;
+  background: var(--color-accent, #f97316);
+  border: none;
+  outline: none;
+  border-radius: var(--border-radius, 8px);
+  cursor: pointer;
+  font-size: 1em;
+  color: white;
+  font-weight: 600;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.btn:hover:not(:disabled) {
+  background: #ea580c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
+}
+
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ===== MENSAJES DE ERROR ===== */
+.errorMessage {
+  margin: 15px 0;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  text-align: center;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+/* ===== ESTADO DE CARGA ===== */
+.btn.loading {
+  pointer-events: none;
+  opacity: 0.7;
+  position: relative;
+}
+
+.btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spinner 0.6s linear infinite;
+}
+
+@keyframes spinner {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== ENLACES ADICIONALES (por si los necesitas) ===== */
+.registerLink,
+.forgotPassword {
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.registerLink a,
+.forgotPassword a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.registerLink a:hover,
+.forgotPassword a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* ===== CHECKBOX (por si lo necesitas) ===== */
+.rememberForgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.rememberForgot label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.rememberForgot input[type="checkbox"] {
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .wrapper {
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .formBox h2 {
+    font-size: 32px;
+  }
+
+  .formBox {
+    padding: 30px 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loginPage {
+    padding: 10px;
+  }
+
+  .wrapper {
+    padding: 15px;
+  }
+
+  .formBox h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+  }
+
+  .formBox {
+    padding: 25px 20px;
+  }
+
+  .inputBox {
+    margin: 25px 0;
+  }
+
+  .btn {
+    height: 42px;
+  }
+}

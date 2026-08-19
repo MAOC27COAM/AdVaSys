@@ -1,0 +1,127 @@
+/* LeaderboardTable.module.css */
+
+.leaderboard-container {
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-lg);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  margin-top: var(--spacing-md);
+}
+
+.leaderboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding: 0 var(--spacing-sm);
+}
+
+.leaderboard-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.6));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+.leaderboard-count {
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.table-wrapper {
+  max-height: 600px;
+  overflow-y: auto;
+  border-radius: 16px;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px; /* Espaciado entre filas para efecto flotante */
+}
+
+.leaderboard-table th {
+  padding: 12px;
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1.5px;
+}
+
+.leaderboard-row {
+  background: rgba(255, 255, 255, 0.03);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.leaderboard-row td {
+  padding: 16px 12px;
+}
+
+.leaderboard-row td:first-child { border-radius: 12px 0 0 12px; }
+.leaderboard-row td:last-child { border-radius: 0 12px 12px 0; }
+
+.leaderboard-row:hover {
+  background: rgba(255, 255, 255, 0.07);
+  transform: scale(1.01);
+}
+
+/* Estilos de Medalla (Puestos 1, 2, 3) */
+.gold {
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.02));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+.gold .score-value { color: #ffd700; font-weight: 800; }
+
+.silver {
+  background: linear-gradient(90deg, rgba(192, 192, 192, 0.15), rgba(192, 192, 192, 0.02));
+  border: 1px solid rgba(192, 192, 192, 0.3);
+}
+.silver .score-value { color: #e2e2e2; }
+
+.bronze {
+  background: linear-gradient(90deg, rgba(205, 127, 50, 0.15), rgba(205, 127, 50, 0.02));
+  border: 1px solid rgba(205, 127, 50, 0.3);
+}
+.bronze .score-value { color: #cd7f32; }
+
+/* Elementos internos */
+.student-name {
+  font-weight: 500;
+  color: #fff;
+}
+
+.rank-badge {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.score-value {
+  font-family: 'JetBrains Mono', monospace; /* O cualquier fuente mono para números */
+  font-size: 1.1rem;
+}
+
+.leaderboard-empty {
+  text-align: center;
+  padding: 60px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 24px;
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+}
+
+.empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
+
+/* Scrollbar para la tabla */
+.table-wrapper::-webkit-scrollbar { width: 6px; }
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}

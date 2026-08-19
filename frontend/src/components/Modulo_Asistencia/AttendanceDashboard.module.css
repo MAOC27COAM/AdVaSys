@@ -1,0 +1,23 @@
+/* AttendanceDashboard.module.css */
+
+.continueBtn {
+    margin-top: 10px;
+    width: 100%;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(249, 115, 22, 0.1);
+    color: #f97316;
+    border: 1px solid #f97316;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.continueBtn:hover {
+    background: #f97316;
+    color: white;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
