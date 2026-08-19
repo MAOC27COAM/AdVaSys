@@ -35,7 +35,7 @@ Requisito: Docker Desktop con Compose.
 
 ## Despliegue en OCI (Oracle Cloud Infrastructure, Always Free)
 
-Ver el plan completo en [`docs/PLAN_MIGRACION_OCI.md`](docs/PLAN_MIGRACION_OCI.md).
+Ver el plan completo en [`docs/PLAN_MIGRACION_OCI.md`](docs/PLAN_MIGRACION_OCI.md) y el procedimiento operativo en [`docs/RUNBOOK_GH_OCI.md`](docs/RUNBOOK_GH_OCI.md).
 
 Resumen:
 
