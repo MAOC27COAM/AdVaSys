@@ -10,6 +10,7 @@ import StudentAttendanceHistory from './components/Modulo_Asistencia/StudentAtte
 import ScheduleModule from './components/Modulo_Horarios/ScheduleModule'; // NUEVO: Importar ScheduleModule
 import MyGradesSimple from './components/Modulo_resultados/MyGradesSimple';
 import UserManager from './components/Modulo_Gestion/UserManager'; 
+import AdminUserManager from './components/Modulo_Gestion/AdminUserManager'; 
 import PaymentsModule from './components/Modulo_Pagos/PaymentsModule';
 import PaymentDashboard from './components/Modulo_Pagos/PaymentDashboard';
 import PaymentStudentDetail from './components/Modulo_Pagos/PaymentStudentDetail';
@@ -42,6 +43,8 @@ function App() {
           <Route path="mis-resultados" element={<MyGradesSimple />} />
           {/* este el la ruta para la gestion de todos los usuarios del sistema */}
           <Route path="usuarios" element={<UserManager />} />
+          {/* ruta para la gestion de usuarios administrativos (admin, profesor, matriculador) */}
+          <Route path="usuarios/administrativos" element={<AdminUserManager />} />
           <Route path="pagos" element={<PaymentsModule />}>
             <Route index element={<PaymentDashboard />} />
             <Route path="alumno/:documentId" element={<PaymentStudentDetail />} />

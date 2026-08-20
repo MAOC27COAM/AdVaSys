@@ -12,6 +12,17 @@ node_modules/
 **/.env.*
 !**/.env.example
 
+# Claves privadas y material de configuración OCI (NUNCA subir)
+CONFIGURACION_OCI/
+*.key
+*.pem
+*.ppk
+*.pfx
+*.p12
+
+# Binarios (instaladores, etc.)
+*.exe
+
 # Datos de ejecución y persistentes
 deploy/runtime/
 backend/uploads/

@@ -332,7 +332,7 @@ const createUser = async (data) => {
         documentId,
         email,
         roleId: role.id,
-        mustChangePassword: true,
+        mustChangePassword: false,
       },
     });
 

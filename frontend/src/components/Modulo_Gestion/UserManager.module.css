@@ -71,6 +71,25 @@
   cursor: not-allowed;
 }
 
+.adminUsersButton {
+  height: 40px;
+  width: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: none;
+  background: #16a34a;
+  color: white;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.adminUsersButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.25);
+}
+
 .barsContainer {
   display: flex;
   flex-direction: column;

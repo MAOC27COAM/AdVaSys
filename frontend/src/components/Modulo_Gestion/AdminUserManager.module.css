@@ -1,0 +1,285 @@
+.adminUserManager {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  animation: fadeIn 0.25s ease;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: var(--spacing-xl);
+  border-left: 5px solid #f97316;
+  padding-left: 15px;
+}
+
+.topActionsBar {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.backButton {
+  height: 40px;
+  padding: 0 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e7eb;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.registerButton {
+  height: 40px;
+  padding: 0 1rem;
+  border-radius: 10px;
+  border: none;
+  background: #f97316;
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-left: auto;
+}
+
+.registerButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(249, 115, 22, 0.25);
+}
+
+.searchForm {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex: 1;
+  max-width: 420px;
+}
+
+.searchInput {
+  flex: 1;
+  height: 40px;
+  padding: 0 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(30, 41, 59, 0.5);
+  color: white;
+  font-size: 0.82rem;
+  transition: all 0.25s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #f97316;
+}
+
+.searchButton {
+  height: 40px;
+  padding: 0 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e7eb;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.searchButton:hover {
+  background: rgba(249, 115, 22, 0.12);
+  border-color: rgba(249, 115, 22, 0.2);
+}
+
+.loadingText,
+.emptyState,
+.accessDenied {
+  padding: 1.2rem;
+  border-radius: 14px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #9ca3af;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.06);
+}
+
+.errorMessage {
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+}
+
+.tableContainer::-webkit-scrollbar {
+  height: 7px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+.userTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 850px;
+}
+
+.userTable thead {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.userTable th {
+  padding: 0.8rem 0.9rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+}
+
+.rowNumHeader,
+.rowNumCell {
+  width: 50px;
+  min-width: 50px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.userTable td {
+  padding: 0.75rem 0.9rem;
+  font-size: 0.82rem;
+  color: #e5e7eb;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+}
+
+.userTable tbody tr {
+  transition: background 0.2s ease;
+}
+
+.userTable tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.roleBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  background: rgba(124, 58, 237, 0.14);
+  color: #c4b5fd;
+  border: 1px solid rgba(124, 58, 237, 0.25);
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.statusActive {
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+  border-color: rgba(34, 197, 94, 0.18);
+}
+
+.statusRetired {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.18);
+}
+
+.statusObservation {
+  background: rgba(249, 115, 22, 0.1);
+  color: #fb923c;
+  border-color: rgba(249, 115, 22, 0.18);
+}
+
+.deactivateButton {
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.deactivateButton:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+.inactiveLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .topActionsBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .registerButton {
+    margin-left: 0;
+  }
+
+  .searchForm {
+    max-width: none;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

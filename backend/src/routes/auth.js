@@ -70,6 +70,7 @@ router.post('/register', async (req, res) => {
         documentId,
         profilePictureUrl, // Campo opcional
         roleId: roleRecord.id, // Se asigna el ID del rol encontrado.
+        mustChangePassword: false,
       },
     });
 

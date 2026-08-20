@@ -42,6 +42,7 @@ async function upsertBaseUsers(roleIds) {
         lastName: 'Superuser',
         documentId: '00000000',
         roleId: roleIds.kami,
+        mustChangePassword: false,
       },
     });
     console.log(`Usuario base listo: kami / (clave ${USING_DEFAULT_PASSWORDS ? 'por defecto' : 'definida por env'})`);
@@ -59,6 +60,7 @@ async function upsertBaseUsers(roleIds) {
         lastName: 'Principal',
         documentId: '11111111',
         roleId: roleIds.admin,
+        mustChangePassword: false,
       },
     });
     console.log(`Usuario base listo: Admin_1 / (clave ${USING_DEFAULT_PASSWORDS ? 'por defecto' : 'definida por env'})`);
@@ -82,6 +84,7 @@ async function upsertBaseUsers(roleIds) {
           lastName: 'Matriculador',
           documentId: user.documentId,
           roleId: roleIds.matriculador,
+          mustChangePassword: false,
         },
       });
       console.log(`Usuario base listo: ${user.username} / (clave ${USING_DEFAULT_PASSWORDS ? 'por defecto' : 'definida por env'})`);

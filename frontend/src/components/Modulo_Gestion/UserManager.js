@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
+import { UserRound } from 'lucide-react';
 import { userService } from '../../services/userService';
 import ColumnBar from './ColumnBar';
 import styles from './UserManager.module.css';
@@ -165,6 +166,7 @@ const AGREEMENT_TYPE_LABELS = {
 
 function UserManager() {
   const { userRole, activeCycleId } = useOutletContext();
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(0);
@@ -471,6 +473,13 @@ function UserManager() {
       {error && <div className={styles.errorMessage}>{error}</div>}
 
       <div className={styles.topActionsBar}>
+        <button
+          onClick={() => navigate('/dashboard/usuarios/administrativos')}
+          className={styles.adminUsersButton}
+          title="Gestionar usuarios administrativo"
+        >
+          <UserRound size={18} />
+        </button>
         <button
           onClick={handleGenerateCards}
           disabled={users.length === 0 || downloadingSheet}

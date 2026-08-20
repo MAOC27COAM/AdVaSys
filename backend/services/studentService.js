@@ -209,7 +209,7 @@ module.exports = {
             ...normalizedUserData,
             username: normalizedUserData.documentId,
             password: hashedPassword,
-            mustChangePassword: true,
+            mustChangePassword: false,
             roleId: studentRole.id,
           },
           include: {
