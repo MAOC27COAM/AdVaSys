@@ -34,7 +34,7 @@
    ```
    Se restaurarán en la VM OCI en `/data/runtime/uploads`.
 4. **Guardar los valores actuales** de `backend/.env` y `backend/.env.production` en un lugar seguro (solo referencia; NO reutilizar las claves).
-5. **Repositorio GitHub creado** (privado): `https://github.com/MAOC27COAM/intranet-vallejo`
+5. **Repositorio GitHub creado** (privado): `https://github.com/MAOC27COAM/AdVaSys`
    - Rama `main`, ya pusheada, `.env`/uploads/runtime excluidos.
    - Para clonar el repo privado en la VM OCI necesitas un **deploy key SSH** (recomendado, read-only) o un **PAT** con permiso de lectura. Ver Fase 3.
 
@@ -96,12 +96,12 @@
 2. Clonar el proyecto (repo privado):
    ```bash
    cd /data
-   git clone git@github.com:MAOC27COAM/intranet-vallejo.git
-   cd intranet-vallejo
+   git clone git@github.com:MAOC27COAM/AdVaSys.git
+   cd AdVaSys
    ```
    > Si usas HTTPS con PAT:
    > ```bash
-   > git clone https://<USUARIO>:<PAT>@github.com/MAOC27COAM/intranet-vallejo.git
+   > git clone https://<USUARIO>:<PAT>@github.com/MAOC27COAM/AdVaSys.git
    > ```
 3. Dar permiso de ejecución al script de despliegue:
    ```bash
@@ -113,7 +113,7 @@
 
 ## FASE 4 — Configurar secretos nuevos en la VM 🔐 TU TAREA
 
-En la VM, editar `/data/intranet-vallejo/deploy/.env` (se crea desde la plantilla al ejecutar el script por primera vez):
+En la VM, editar `/data/AdVaSys/deploy/.env` (se crea desde la plantilla al ejecutar el script por primera vez):
 
 ```env
 COMPOSE_PROJECT_NAME=intranet_vallejo_oci
@@ -146,7 +146,7 @@ openssl rand -hex 64   # para JWT_SECRET
    ```
 2. **Levantar SOLO la BD** para restaurar:
    ```bash
-   cd /data/intranet-vallejo/deploy
+   cd /data/AdVaSys/deploy
    RUNTIME_DIR=/data/runtime docker compose --env-file .env -f docker-compose.beta.yml up -d db
    ```
 3. **Restaurar el dump** (formato custom `-Fc`, se usa `pg_restore`):
@@ -176,7 +176,7 @@ openssl rand -hex 64   # para JWT_SECRET
 
 1. Ejecutar el script (construye imágenes, corre migraciones Prisma y seed automáticamente):
    ```bash
-   cd /data/intranet-vallejo/deploy
+   cd /data/AdVaSys/deploy
    ./install-or-update.sh
    ```
 2. Abrir en el navegador:
@@ -215,7 +215,7 @@ openssl rand -hex 64   # para JWT_SECRET
 - [ ] Programar respaldos periódicos de la BD y uploads (pendiente fase posterior, pero puedes empezar con un cron simple):
   ```bash
   # En la VM (cron)
-  0 2 * * * cd /data/intranet-vallejo/deploy && docker compose --env-file .env -f docker-compose.beta.yml exec -T db pg_dump -U intranet -d intranet_db > /data/backups/backup_$(date +\%F).sql
+  0 2 * * * cd /data/AdVaSys/deploy && docker compose --env-file .env -f docker-compose.beta.yml exec -T db pg_dump -U intranet -d intranet_db > /data/backups/backup_$(date +\%F).sql
   ```
 - [ ] Dejar constancia de la IP pública, región y credenciales en un gestor de contraseñas.
 
@@ -245,7 +245,7 @@ openssl rand -hex 64   # para JWT_SECRET
 6. **`backend/prisma/seed.js`** — contraseñas por defecto configurables vía `SEED_PASSWORD_KAMI` / `SEED_PASSWORD_ADMIN` / `SEED_PASSWORD_MATRICULADOR`, con advertencia en consola si se usan las por defecto.
 7. **`backend/src/app.js`** — **rate-limit global** (600 solicitudes / 15 min por IP) además del límite de login ya existente.
 8. **Eliminado `backend/test_env.js`** — imprimía `DATABASE_URL` en consola (riesgo de fuga de credenciales).
-9. **Repositorio unificado creado y pusheado** — `https://github.com/MAOC27COAM/intranet-vallejo` (privado, rama `main`). Se aplanaron los `.git` internos de `backend/` y `frontend/`; la landing `WEB/` se excluyó (mantiene su propio repo).
+9. **Repositorio unificado creado y pusheado** — `https://github.com/MAOC27COAM/AdVaSys` (privado, rama `main`). Se aplanaron los `.git` internos de `backend/` y `frontend/`; la landing `WEB/` se excluyó (mantiene su propio repo).
 10. **`.gitattributes`** — fuerza LF en `*.sh` (evita "bad interpreter" en la VM Ubuntu), CRLF en `*.ps1`/`*.bat`, y marca los binarios como `binary`.
 11. **`deploy/docker-compose.beta.yml`** — imagen de BD cambiada a **`postgres:18-alpine`** para coincidir con el PostgreSQL 18 local y que el `pg_dump` restaure sin conflictos de versión.
 12. **`README.md`** — completado con stack, estructura, despliegue local y enlaces al plan OCI.

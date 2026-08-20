@@ -1,7 +1,7 @@
 # Runbook: GitHub + OCI (Oracle Cloud Infrastructure, Always Free)
 
 **Sistema:** Intranet Académica ADUNI Vallejo
-**Repositorio:** `https://github.com/MAOC27COAM/intranet-vallejo` (privado, rama `main`)
+**Repositorio:** `https://github.com/MAOC27COAM/AdVaSys` (privado, rama `main`)
 **Fecha de preparación:** 2026-08-19
 
 > Guía operativa de despliegue y actualización del sistema en una VM de OCI dentro del plan Always Free. Complementa a [`PLAN_MIGRACION_OCI.md`](PLAN_MIGRACION_OCI.md) (plan de migración completo).
@@ -33,10 +33,10 @@ Datos persistentes en el Block Volume montado en /data/runtime
 
 ## 2. GitHub: registrar la deploy key (1 vez)
 
-1. Abrir `https://github.com/MAOC27COAM/intranet-vallejo/settings/keys`.
+1. Abrir `https://github.com/MAOC27COAM/AdVaSys/settings/keys`.
 2. **Add deploy key**:
    - Title: `oci-vm`
-   - Key: contenido de `intranet-vallejo_deploy.pub`
+   - Key: contenido de `AdVaSys_deploy.pub`
    - Sin marcar **Allow write access** (solo lectura).
 
 > Alternativa: usar un **PAT** de GitHub con permiso de solo lectura en la URL de clonado HTTPS.
@@ -83,7 +83,7 @@ sudo usermod -aG docker $USER
 
 ```bash
 mkdir -p ~/.ssh
-# Copiar el contenido de intranet-vallejo_deploy (clave PRIVADA) a ~/.ssh/id_deploy
+# Copiar el contenido de AdVaSys_deploy (clave PRIVADA) a ~/.ssh/id_deploy
 chmod 600 ~/.ssh/id_deploy
 cat >> ~/.ssh/config <<'EOF'
 Host github.com
@@ -94,8 +94,8 @@ Host github.com
 EOF
 
 cd /data
-git clone git@github.com:MAOC27COAM/intranet-vallejo.git
-cd intranet-vallejo
+git clone git@github.com:MAOC27COAM/AdVaSys.git
+cd AdVaSys
 chmod +x deploy/install-or-update.sh
 ```
 
@@ -104,7 +104,7 @@ chmod +x deploy/install-or-update.sh
 ## 6. Configurar secretos NUEVOS en la VM
 
 ```bash
-cd /data/intranet-vallejo/deploy
+cd /data/AdVaSys/deploy
 cp .env.example .env
 ```
 
@@ -141,7 +141,7 @@ scp -r -i TU_CLAVE_OCI.pem uploads ubuntu@IP_PUBLICA:/data/runtime/uploads
 En la VM, levantar solo la BD y restaurar:
 
 ```bash
-cd /data/intranet-vallejo/deploy
+cd /data/AdVaSys/deploy
 RUNTIME_DIR=/data/runtime docker compose --env-file .env -f docker-compose.beta.yml up -d db
 
 docker compose --env-file .env -f docker-compose.beta.yml exec -T db \
@@ -160,7 +160,7 @@ docker compose --env-file .env -f docker-compose.beta.yml exec db psql -U intran
 ## 8. Levantar el sistema
 
 ```bash
-cd /data/intranet-vallejo/deploy
+cd /data/AdVaSys/deploy
 ./install-or-update.sh
 ```
 
@@ -178,7 +178,7 @@ cd /data/intranet-vallejo/deploy
 ## 10. Actualizar el sistema (versiones futuras)
 
 ```bash
-cd /data/intranet-vallejo
+cd /data/AdVaSys
 git pull
 cd deploy
 ./install-or-update.sh
@@ -190,7 +190,7 @@ El script reconstruye las imágenes y levanta los servicios; las migraciones de 
 
 ```bash
 # Backup de la BD (manual)
-cd /data/intranet-vallejo/deploy
+cd /data/AdVaSys/deploy
 docker compose --env-file .env -f docker-compose.beta.yml exec -T db \
   pg_dump -U intranet -d intranet_db > /data/backups/backup_$(date +%F).sql
 
