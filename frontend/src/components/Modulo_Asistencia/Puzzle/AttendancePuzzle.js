@@ -4,8 +4,8 @@ import { cycleService } from '../../../services/cycleService';
 import style from './AttendancePuzzle.module.css';
 
 const MODALITY_OPTIONS = [
-  { value: 'PRE_U', label: 'PRE-U' },
   { value: 'ALL', label: 'Todas las modalidades' },
+  { value: 'PRE_U', label: 'PRE-U' },
   { value: 'SECUNDARIA', label: 'Secundaria' },
   { value: 'PRIMERA_OPCION', label: 'Primera opcion' },
   { value: 'COAR', label: 'COAR' },
@@ -20,6 +20,7 @@ const GROUP_OPTIONS = [
   { value: 'C', label: 'C' },
   { value: 'D', label: 'D' },
   { value: 'E', label: 'E' },
+  { value: 'SIN_GRUPO', label: 'Sin grupo' },
 ];
 
 const SESSION_TYPE_OPTIONS = [
@@ -27,6 +28,7 @@ const SESSION_TYPE_OPTIONS = [
   { value: 'TURN_MANANA', label: 'Turno Manana' },
   { value: 'TURN_TARDE', label: 'Turno Tarde' },
   { value: 'TURN_COMPLETO', label: 'Tiempo Completo' },
+  { value: 'SIN_TURNO', label: 'Sin turno' },
 ];
 
 const STATUS_ABBREV = {
@@ -86,12 +88,13 @@ function AttendancePuzzle({ activeCycleId, onBack, onActionViewStudentHistory })
   const today = useMemo(() => toPeruDateStr(new Date()), []);
 
   const [filters, setFilters] = useState({
-    modality: 'PRE_U',
+    modality: 'ALL',
     group: 'ALL',
     sessionType: 'ALL',
     startDate: '',
     endDate: '',
   });
+  const [totalEnrolled, setTotalEnrolled] = useState(null);
 
   useEffect(() => {
     if (!activeCycleId) return;
@@ -152,20 +155,25 @@ function AttendancePuzzle({ activeCycleId, onBack, onActionViewStudentHistory })
       });
       setStudents(data.students || []);
       setSessions(data.sessions || []);
+      setTotalEnrolled(data.meta?.totalEnrolledActive ?? null);
     } catch (err) {
       setError(err.response?.data?.error || 'Error al cargar la matriz de asistencia.');
       setStudents([]);
       setSessions([]);
+      setTotalEnrolled(null);
     } finally {
       setLoading(false);
     }
   }, [activeCycleId, filters]);
 
+  // Solo recarga automatica inicial o por cambio de fechas/ciclo.
+  // Cambios de modalidad/grupo/turno requieren presionar "Cargar" (evita percepcion de filtro roto).
   useEffect(() => {
     if (activeCycleId && filters.startDate && filters.endDate && cycleDates.startDate) {
       handleLoad();
     }
-  }, [activeCycleId, filters.startDate, filters.endDate, cycleDates.startDate, handleLoad]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCycleId, filters.startDate, filters.endDate, cycleDates.startDate]);
 
   const dateRange = useMemo(() => {
     if (!filters.startDate || !filters.endDate) return [];
@@ -352,7 +360,7 @@ function AttendancePuzzle({ activeCycleId, onBack, onActionViewStudentHistory })
       {error && <div className={style.errorBox}>{error}</div>}
 
       <div className={style.summaryRow}>
-        <span>Estudiantes: <strong>{filteredStudents.length}</strong>{searchQuery.trim() ? ` / ${students.length}` : ''}</span>
+        <span>Estudiantes: <strong>{filteredStudents.length}</strong>{searchQuery.trim() ? ` / ${students.length}` : ''}{totalEnrolled !== null && totalEnrolled !== students.length ? ` (filtrados de ${totalEnrolled} activos)` : ''}</span>
         <span>Dias: <strong>{columns.length}</strong></span>
         {/* <span>Columnas: <strong>{totalColumns}</strong></span>
         <span>Presentes: <strong style={{ color: '#4ade80' }}>{totalPresent}</strong></span>

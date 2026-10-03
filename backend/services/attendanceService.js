@@ -541,9 +541,12 @@ if (existingRecord) {
   getPuzzleData: async (cycleId, filters = {}) => {
     const parsedCycleId = parseCycleId(cycleId);
 
-    const modalityFilter = filters.modality && filters.modality !== 'ALL' ? filters.modality : undefined;
-    const groupFilter = filters.group && filters.group !== 'ALL' ? filters.group : undefined;
-    const sessionTypeFilter = filters.sessionType && filters.sessionType !== 'ALL' ? filters.sessionType : undefined;
+    const norm = (v) => (typeof v === 'string' ? v.trim().toUpperCase() : v);
+    const modalityFilter = filters.modality && norm(filters.modality) !== 'ALL' ? String(filters.modality).trim() : undefined;
+    const rawGroup = filters.group ? String(filters.group).trim() : '';
+    const groupFilter = !rawGroup || norm(rawGroup) === 'ALL' ? undefined : norm(rawGroup);
+    const filterSinGrupo = norm(rawGroup) === 'SIN_GRUPO' || norm(rawGroup) === 'SIN GRUPO';
+    const sessionTypeFilter = filters.sessionType && norm(filters.sessionType) !== 'ALL' ? String(filters.sessionType).trim().toUpperCase() : undefined;
 
     const allowedSchedules = sessionTypeFilter
       ? ({
@@ -552,6 +555,7 @@ if (existingRecord) {
           TURN_COMPLETO: ['TURNO_COMPLETO'],
         })[sessionTypeFilter]
       : null;
+    const filterSinTurno = sessionTypeFilter === 'SIN_TURNO' || sessionTypeFilter === 'SIN TURNO';
 
     const [enrollments, sessions] = await Promise.all([
       prisma.cycleEnrollment.findMany({
@@ -601,14 +605,25 @@ if (existingRecord) {
       }),
     ]);
 
-    const students = enrollments
-      .map(({ user }) => user)
-      .filter((user) => {
-        const matchesModality = !modalityFilter || user.studentProfile?.modality === modalityFilter;
-        const matchesGroup = !groupFilter || user.studentProfile?.group === groupFilter;
-        const matchesSchedule = !allowedSchedules || allowedSchedules.includes(user.studentProfile?.schedule);
-        return matchesModality && matchesGroup && matchesSchedule;
-      });
+    const allStudents = enrollments.map(({ user }) => user);
+    const students = allStudents.filter((user) => {
+      const matchesModality = !modalityFilter || user.studentProfile?.modality === modalityFilter;
+      let matchesGroup = true;
+      if (filterSinGrupo) {
+        const g = user.studentProfile?.group;
+        matchesGroup = !g || String(g).trim() === '';
+      } else if (groupFilter) {
+        matchesGroup = norm(user.studentProfile?.group) === groupFilter;
+      }
+      let matchesSchedule = true;
+      if (filterSinTurno) {
+        const s = user.studentProfile?.schedule;
+        matchesSchedule = !s || String(s).trim() === '';
+      } else if (allowedSchedules) {
+        matchesSchedule = allowedSchedules.includes(user.studentProfile?.schedule);
+      }
+      return matchesModality && matchesGroup && matchesSchedule;
+    });
 
     const mappedSessions = sessions.map((session) => ({
       id: session.id,
@@ -620,7 +635,11 @@ if (existingRecord) {
       }, {}),
     }));
 
-    return { students, sessions: mappedSessions };
+    return {
+      students,
+      sessions: mappedSessions,
+      meta: { totalEnrolledActive: allStudents.length, totalFiltered: students.length },
+    };
   },
 
   exportPuzzleToExcel: async (cycleId, filters = {}) => {

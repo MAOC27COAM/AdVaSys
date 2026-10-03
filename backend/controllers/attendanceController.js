@@ -289,10 +289,11 @@ const getPuzzleData = async (req, res, next) => {
       return res.status(400).json({ error: 'El rango de fechas no puede exceder 31 dias.' });
     }
 
+    const normalizeFilter = (v) => (!v || v === '' ? 'ALL' : v);
     const result = await attendanceService.getPuzzleData(cycleId, {
-      modality: modality || 'PRE_U',
-      group,
-      sessionType,
+      modality: normalizeFilter(modality),
+      group: normalizeFilter(group),
+      sessionType: normalizeFilter(sessionType),
       startDate,
       endDate,
     });
@@ -311,10 +312,11 @@ const exportPuzzleToExcel = async (req, res, next) => {
       return res.status(400).json({ error: 'Se requiere ciclo y rango de fechas.' });
     }
 
+    const normalizeFilter = (v) => (!v || v === '' ? 'ALL' : v);
     const { buffer, fileName } = await attendanceService.exportPuzzleToExcel(cycleId, {
-      modality: modality || 'PRE_U',
-      group,
-      sessionType,
+      modality: normalizeFilter(modality),
+      group: normalizeFilter(group),
+      sessionType: normalizeFilter(sessionType),
       startDate,
       endDate,
     });
